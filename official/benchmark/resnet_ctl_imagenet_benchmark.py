@@ -38,13 +38,16 @@ FLAGS = flags.FLAGS
 class CtlBenchmark(PerfZeroBenchmark):
   """Base benchmark class with methods to simplify testing."""
 
-  def __init__(self, output_dir=None, default_flags=None, flag_methods=None):
+  def __init__(self, output_dir=None, default_flags=None, flag_methods=None,
+               tpu=None, **kwargs):
     self.default_flags = default_flags or {}
     self.flag_methods = flag_methods or {}
     super(CtlBenchmark, self).__init__(
         output_dir=output_dir,
         default_flags=self.default_flags,
-        flag_methods=self.flag_methods)
+        flag_methods=self.flag_methods,
+        tpu=tpu,
+        **kwargs)
 
   def _report_benchmark(self,
                         stats,
@@ -132,7 +135,7 @@ class Resnet50CtlAccuracy(CtlBenchmark):
 
     self.data_dir = os.path.join(root_data_dir, 'imagenet')
     super(Resnet50CtlAccuracy, self).__init__(
-        output_dir=output_dir, flag_methods=flag_methods)
+        output_dir=output_dir, flag_methods=flag_methods, **kwargs)
 
   def benchmark_8_gpu(self):
     """Test Keras model with eager, dist_strat and 8 GPUs."""
@@ -190,13 +193,14 @@ class Resnet50CtlAccuracy(CtlBenchmark):
 class Resnet50CtlBenchmarkBase(CtlBenchmark):
   """Resnet50 benchmarks."""
 
-  def __init__(self, output_dir=None, default_flags=None):
+  def __init__(self, output_dir=None, default_flags=None, **kwargs):
     flag_methods = [common.define_keras_flags]
 
     super(Resnet50CtlBenchmarkBase, self).__init__(
         output_dir=output_dir,
         flag_methods=flag_methods,
-        default_flags=default_flags)
+        default_flags=default_flags,
+        **kwargs)
 
   @benchmark_wrappers.enable_runtime_flags
   def _run_and_report_benchmark(self):
@@ -439,7 +443,7 @@ class Resnet50CtlBenchmarkSynth(Resnet50CtlBenchmarkBase):
     def_flags['log_steps'] = 10
 
     super(Resnet50CtlBenchmarkSynth, self).__init__(
-        output_dir=output_dir, default_flags=def_flags)
+        output_dir=output_dir, default_flags=def_flags, **kwargs)
 
 
 class Resnet50CtlBenchmarkReal(Resnet50CtlBenchmarkBase):
@@ -454,7 +458,7 @@ class Resnet50CtlBenchmarkReal(Resnet50CtlBenchmarkBase):
     def_flags['log_steps'] = 10
 
     super(Resnet50CtlBenchmarkReal, self).__init__(
-        output_dir=output_dir, default_flags=def_flags)
+        output_dir=output_dir, default_flags=def_flags, **kwargs)
 
 
 if __name__ == '__main__':
