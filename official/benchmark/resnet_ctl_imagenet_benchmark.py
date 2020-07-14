@@ -386,7 +386,6 @@ class Resnet50CtlBenchmarkBase(CtlBenchmark):
     FLAGS.use_tf_function = True
     FLAGS.enable_checkpoint_and_export = False
     FLAGS.data_dir = 'gs://mlperf-imagenet/imagenet/combined'
-    self.data_dir = 'gs://mlperf-imagenet/imagenet/combined'
 
   def benchmark_2x2_tpu_bf16(self):
     self._setup()
