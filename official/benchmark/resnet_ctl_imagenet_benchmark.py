@@ -417,6 +417,7 @@ class Resnet50CtlBenchmarkBase(CtlBenchmark):
     self._set_df_common()
     FLAGS.batch_size = 4096
     FLAGS.dtype = 'bf16'
+    FLAGS.model_dir = self._get_model_dir('tpu_4x4_bf16_mlir')
     print ("Data dir is {}".format(FLAGS.data_dir))
     tf.config.experimental.enable_mlir_bridge()
     self._run_and_report_benchmark()
