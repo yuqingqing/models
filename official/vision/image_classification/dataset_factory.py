@@ -72,13 +72,13 @@ class DatasetConfig(base_config.Config):
       == `height`. Set to 'infer' to infer the image size from TFDS info. This
       requires `name` to be a registered dataset in TFDS.
     num_classes: The number of classes given by the dataset. Set to 'infer' to
-      infer the image size from TFDS info. This requires `name` to be a
+      infer the image classes num from TFDS info. This requires `name` to be a
       registered dataset in TFDS.
     num_channels: The number of channels given by the dataset. Set to 'infer' to
-      infer the image size from TFDS info. This requires `name` to be a
+      infer the image channels num from TFDS info. This requires `name` to be a
       registered dataset in TFDS.
     num_examples: The number of examples given by the dataset. Set to 'infer' to
-      infer the image size from TFDS info. This requires `name` to be a
+      infer the image examples num from TFDS info. This requires `name` to be a
       registered dataset in TFDS.
     batch_size: The base batch size for the dataset.
     use_per_replica_batch_size: Whether to scale the batch size based on
